@@ -40,3 +40,19 @@ sales[c(1,2),]
 sales[,c(1,2)]
 #1열~3열 출력
 sales[,1:3]
+
+kia <- read.csv('./기아타이거즈연봉.csv')
+
+#상위 6개
+head(kia)
+#하위 6개
+tail(kia)
+#출력 개수 지정
+head(kia,15)
+#data 구조 파악
+str(kia)
+View(kia)
+summary(kia)
+
+boxplot(kia)
+boxplot(kia$연봉)
