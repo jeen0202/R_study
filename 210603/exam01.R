@@ -56,3 +56,50 @@ summary(kia)
 
 boxplot(kia)
 boxplot(kia$연봉)
+
+#wordcolud 시각화를 위한 package 설치
+install.packages('wordcloud')
+library(wordcloud)
+word <- c("광어","족발","짜장","냉면","국밥","치킨")
+pre <- c(150,70,60,65,110,200)
+#wordcloud(단어,빈도)
+wordcloud(word,pre)
+#wordcloud 내부 option
+wordcloud(word, pre, random.order = F,colors =c("black","blue","red"))
+wordcloud(kia$선수명,kia$연봉, random.order = F, colors=c("darkgray","forestgreen","blue","yellow","black"))
+
+#전처리를 위한 package 설치
+install.packages('dplyr')
+library(dplyr)
+
+list.files()
+exam <- read.csv("./csv_exam.csv")
+View(exam)
+# dplyr 내부 함수 사용을 위한 명령어 : %>%
+#filter의 조건식이 참인 항목을 반환
+exam %>% filter(class == 1)
+exam %>% filter(class != 1)
+# &(and) |(or)
+exam %>% filter(class ==1 | class == 3)
+exam %>% filter(class ==1 & math >= 50)
+
+
+install.packages("ggplot2")
+library(dplyr)
+library(ggplot2)
+View(mpg)
+#dataFrame으로 변환
+mpg2 <- as.data.frame(mpg)
+str(mpg2)
+#filtering
+dis4 <-mpg2 %>% filter(displ <=4)
+dis5 <-mpg2 %>% filter(displ >=5)
+#평균 도출
+mean(dis4$hwy)
+mean(dis5$hwy)
+#연비 비교
+audi <- mpg2 %>% filter(manufacturer == 'audi')
+toyota <- mpg2 %>% filter(manufacturer == 'toyota')
+mean(audi$cty)
+mean(toyota$cty)
+
