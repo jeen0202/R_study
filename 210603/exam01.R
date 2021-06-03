@@ -75,7 +75,7 @@ library(dplyr)
 list.files()
 exam <- read.csv("./csv_exam.csv")
 View(exam)
-# dplyr 내부 함수 사용을 위한 명령어 : %>%
+# dplyr 내부 함수 사용을 위한 연산자자(Pipe) : %>%
 #filter의 조건식이 참인 항목을 반환
 exam %>% filter(class == 1)
 exam %>% filter(class != 1)
@@ -103,3 +103,37 @@ toyota <- mpg2 %>% filter(manufacturer == 'toyota')
 mean(audi$cty)
 mean(toyota$cty)
 
+#Select
+exam %>% select(math)
+#복수의 항목 Select
+exam %>% select(math,english)
+#항목 제외
+exam %>% select(-math)
+# 연산 복수 실행(filter,select)
+exam %>% filter(class == 1) %>% select(math)
+
+install.packages('googleVis')
+library(googleVis)
+library(dplyr)
+
+Fruits
+Apples <- Fruits %>% filter(Fruit =='Apples')
+Apples %>% filter(Sales == max(Apples$Sales)) %>% select(Date) 
+Oranges <- Fruits %>% filter(Fruit =='Oranges')
+Bananas <- Fruits %>% filter(Fruit =='Bananas')
+
+#정렬(default ASC)
+exam %>% arrange(math)
+#내림차순
+exam %>% arrange(desc(math))
+#연속정렬
+exam %>% arrange(math, english)
+
+View(exam)
+#파생변수 추가
+exam <-exam %>% mutate(avg =(math +english + science)/3)
+View(exam)
+#class가 1인 학생중 평균이 가장 높은 학생
+exam %>% filter(class ==1) %>% filter(avg==max(avg))
+head(exam %>% filter(class ==1) %>% arrange(desc(avg)),1)
+exam %>% filter(class ==1) %>% arrange(desc(avg)) %>% head(1)
